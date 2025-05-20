@@ -1,5 +1,6 @@
 import pdfplumber
 import openpyxl
+import decimal
 from typing import Dict
 # import tempfile  # Descomente para usar arquivo temporário
 
@@ -93,7 +94,7 @@ class Conversor_Pdf_Excel:
         resultados = {
             "arquivo": self.excel_path,
             "contrato_principal": None,
-            "valor_total": None,
+            "valor_total": None,  # Agora será do tipo decimal.Decimal
             "conceito": None,
         }
 
@@ -137,7 +138,7 @@ class Conversor_Pdf_Excel:
                         if valor:
                             try:
                                 valor_str = str(valor).replace('"', '').replace('.', '').replace(',', '.')
-                                resultados["valor_total"] = float(valor_str)
+                                resultados["valor_total"] = decimal.Decimal(valor_str)
                                 print(f"         ✔️ Valor encontrado na linha {row_num}: {resultados['valor_total']}")
                             except Exception:
                                 resultados["valor_total"] = valor
